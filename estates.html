@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .property-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            width: 300px;
+        }
+        .property-form {
+            max-width: 500px;
+            margin: 20px 0;
+        }
+        input, select, textarea {
+            margin: 5px 0;
+            width: 100%;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real Estate Management System</h1>
+
+    <!-- Property Addition Form -->
+    <div class="property-form">
+        <h2>Add New Property</h2>
+        <form id="propertyForm">
+            <input type="text" placeholder="Property Title" id="title" required>
+            <input type="text" placeholder="Address" id="address" required>
+            <select id="type" required>
+                <option value="">Select Property Type</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="commercial">Commercial</option>
+            </select>
+            <input type="number" placeholder="Price" id="price" required>
+            <textarea placeholder="Description" id="description" required></textarea>
+            <button type="submit">Add Property</button>
+        </form>
+    </div>
+
+    <!-- Property Listing -->
+    <h2>Property Listings</h2>
+    <div id="propertyList"></div>
+
+    <script>
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const property = {
+                title: document.getElementById('title').value,
+                address: document.getElementById('address').value,
+                type: document.getElementById('type').value,
+                price: document.getElementById('price').value,
+                description: document.getElementById('description').value
+            };
+
+            addProperty(property);
+            this.reset();
+        });
+
+        function addProperty(property) {
+            const propertyList = document.getElementById('propertyList');
+            const propertyCard = document.createElement('div');
+            propertyCard.className = 'property-card';
+            
+            propertyCard.innerHTML = `
+                <h3>${property.title}</h3>
+                <p><strong>Address:</strong> ${property.address}</p>
+                <p><strong>Type:</strong> ${property.type}</p>
+                <p><strong>Price:</strong> $${property.price}</p>
+                <p><strong>Description:</strong> ${property.description}</p>
+                <button onclick="this.parentElement.remove()">Delete</button>
+            `;
+
+            propertyList.appendChild(propertyCard);
+        }
+    </script>
+</body>
+</html>
